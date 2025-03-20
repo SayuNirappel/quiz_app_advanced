@@ -1,6 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:quiz_app_advanced/dummy_db.dart';
-import 'package:quiz_app_advanced/view/advanced_controller.dart';
+
 import 'package:quiz_app_advanced/view/result_screen/result_screen.dart';
 
 void main() {}
@@ -8,9 +10,8 @@ void main() {}
 class QuizScreen extends StatefulWidget {
   const QuizScreen({
     super.key,
-    //required this.position
   });
-  //final int position;
+
   @override
   State<QuizScreen> createState() => _QuizScreenState();
 }
@@ -20,6 +21,53 @@ class _QuizScreenState extends State<QuizScreen> {
   int limit = 10;
   int questionIndex = 0;
   int? clickedIndex;
+  int timeLeft = 30;
+  Timer? timer; // execute fn after delay or repeatation
+
+  @override
+  void initState() {
+    super.initState();
+    startTimer();
+  }
+
+//funtion to start timer
+  void startTimer() {
+    timer?.cancel(); // to avoid exsisting timer ? to make sure not null
+    timeLeft = 30;
+    timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (timeLeft > 0) {
+        setState(() {
+          timeLeft--; //remaining time upgrade 1 by 1
+        });
+      } else {
+        timer?.cancel(); //to cancer timer and can be assigned later
+        nextQuestion();
+      }
+    });
+  }
+
+  void nextQuestion() {
+    if (questionIndex < DummyDb.questions.length - 1) {
+      setState(() {
+        questionIndex++;
+        clickedIndex = null;
+        startTimer(); // Restart timer for the next question
+      });
+    } else {
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ResultScreen(answerCount: answerCount)));
+    }
+  }
+
+//stateful widget removal from widget tree
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose(); //statful widget build and discarding old state
+    //used to stop timer from running bg
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,11 +95,34 @@ class _QuizScreenState extends State<QuizScreen> {
                 decoration: BoxDecoration(
                     color: Colors.grey.shade600,
                     borderRadius: BorderRadius.circular(10)),
-                child: Center(
-                  child: Text(
-                    DummyDb.questions[questionIndex].question,
-                    style: TextStyle(color: Colors.white),
-                  ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    // timer
+                    Container(
+                      width: 150,
+                      height: 150,
+                      decoration: BoxDecoration(
+                          color: Colors.blueGrey,
+                          borderRadius: BorderRadius.circular(50)),
+                      child: Center(
+                        child: Text(
+                          "$timeLeft sec",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.amber,
+                              fontSize: 40),
+                        ),
+                      ),
+                    ),
+                    Center(
+                      child: Text(
+                        DummyDb.questions[questionIndex].question,
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -72,6 +143,8 @@ class _QuizScreenState extends State<QuizScreen> {
                               DummyDb.questions[questionIndex].answerIndex) {
                             answerCount++;
                           }
+                          timer
+                              ?.cancel(); // stop timer when an option is clicked
                         },
                         child: Container(
                           decoration: BoxDecoration(
@@ -114,20 +187,7 @@ class _QuizScreenState extends State<QuizScreen> {
             ),
             if (clickedIndex != null)
               InkWell(
-                onTap: () {
-                  setState(() {
-                    if (questionIndex < DummyDb.questions.length - 1) {
-                      questionIndex++;
-                    } else {
-                      Navigator.pushReplacement(
-                          (context),
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  ResultScreen(answerCount: answerCount)));
-                    }
-                    clickedIndex = null;
-                  });
-                },
+                onTap: nextQuestion, // calling next question
                 child: Container(
                     height: 40,
                     width: double.infinity,
