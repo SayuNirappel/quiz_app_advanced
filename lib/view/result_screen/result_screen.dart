@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app_advanced/dummy_db.dart';
-import 'package:quiz_app_advanced/view/quiz_screen/quiz_screen.dart';
+import 'package:quiz_app_advanced/view/category_screen/category_screen.dart';
 
 void main() {}
 
@@ -49,7 +49,7 @@ class ResultScreen extends StatelessWidget {
           InkWell(
             onTap: () {
               Navigator.pushReplacement((context),
-                  MaterialPageRoute(builder: (context) => QuizScreen()));
+                  MaterialPageRoute(builder: (context) => CategoryScreen()));
             },
             child: Container(
               height: 50,

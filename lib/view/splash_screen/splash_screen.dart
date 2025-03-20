@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:quiz_app_advanced/view/category_screen/category_screen.dart';
 import 'package:quiz_app_advanced/view/quiz_screen/quiz_screen.dart';
 
 void main() {}
@@ -21,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // });
     Timer(Duration(seconds: 3), () {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => QuizScreen()));
+          context, MaterialPageRoute(builder: (context) => CategoryScreen()));
     });
     super.initState();
   }

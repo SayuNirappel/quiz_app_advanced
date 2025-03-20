@@ -39,9 +39,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   await Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => QuizScreen(
-                              //position: index
-                              )));
+                          builder: (context) => QuizScreen(position: index)));
                 },
                 child: Container(
                     decoration: BoxDecoration(

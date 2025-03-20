@@ -100,4 +100,93 @@ class DummyDb {
       answerIndex: 1,
     ),
   ];
+
+  ///
+  ///
+  ///
+  ///
+  ///
+  ///
+  static List<QuestionModel> questions1 = [
+    QuestionModel(
+      question:
+          "Which of the following is not a pillar of Object-Oriented Programming?",
+      options: ["Encapsulation", "Polymorphism", "Abstraction", "Compilation"],
+      answerIndex: 3,
+    ),
+    QuestionModel(
+      question: "What is encapsulation in OOP?",
+      options: [
+        "Wrapping data and methods into a single unit",
+        "Hiding data implementation details",
+        "Allowing multiple methods with the same name",
+        "Creating new classes from existing ones"
+      ],
+      answerIndex: 0,
+    ),
+    QuestionModel(
+      question:
+          "Which OOP principle allows different classes to have methods with the same name?",
+      options: ["Inheritance", "Encapsulation", "Polymorphism", "Abstraction"],
+      answerIndex: 2,
+    ),
+    QuestionModel(
+      question:
+          "Which keyword is used to define a class in most OOP languages?",
+      options: ["def", "func", "class", "object"],
+      answerIndex: 2,
+    ),
+    QuestionModel(
+      question: "What is an object in OOP?",
+      options: [
+        "A function inside a class",
+        "An instance of a class",
+        "A blueprint for creating classes",
+        "A type of variable"
+      ],
+      answerIndex: 1,
+    ),
+    QuestionModel(
+      question: "What is inheritance in OOP?",
+      options: [
+        "Creating a new class from an existing class",
+        "Restricting access to class members",
+        "Using multiple classes for the same purpose",
+        "Defining functions with the same name"
+      ],
+      answerIndex: 0,
+    ),
+    QuestionModel(
+      question:
+          "Which type of inheritance allows a class to inherit from multiple classes?",
+      options: ["Single", "Multiple", "Hierarchical", "Multilevel"],
+      answerIndex: 1,
+    ),
+    QuestionModel(
+      question: "What is abstraction in OOP?",
+      options: [
+        "Hiding implementation details and showing only functionality",
+        "Allowing different objects to behave differently",
+        "Combining multiple classes",
+        "Creating new classes from existing ones"
+      ],
+      answerIndex: 0,
+    ),
+    QuestionModel(
+      question:
+          "Which access modifier restricts access to a variable or method to within the same class?",
+      options: ["Public", "Private", "Protected", "Static"],
+      answerIndex: 1,
+    ),
+    QuestionModel(
+      question: "What is a constructor in OOP?",
+      options: [
+        "A special method used to initialize an object",
+        "A method that destroys an object",
+        "A method that defines multiple objects",
+        "A function that returns an object"
+      ],
+      answerIndex: 0,
+    ),
+  ];
 }

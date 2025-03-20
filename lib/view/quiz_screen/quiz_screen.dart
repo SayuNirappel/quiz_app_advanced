@@ -2,16 +2,15 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:quiz_app_advanced/dummy_db.dart';
+import 'package:quiz_app_advanced/model/question_model.dart';
 
 import 'package:quiz_app_advanced/view/result_screen/result_screen.dart';
 
 void main() {}
 
 class QuizScreen extends StatefulWidget {
-  const QuizScreen({
-    super.key,
-  });
-
+  const QuizScreen({super.key, required this.position});
+  final int position;
   @override
   State<QuizScreen> createState() => _QuizScreenState();
 }
@@ -23,10 +22,17 @@ class _QuizScreenState extends State<QuizScreen> {
   int? clickedIndex;
   int timeLeft = 30;
   Timer? timer; // execute fn after delay or repeatation
+  double prob = 0; //progress initial value
+  List<QuestionModel> iquestions = [];
 
   @override
   void initState() {
     super.initState();
+    if (widget.position == 0) {
+      iquestions = DummyDb.questions;
+    } else {
+      iquestions = DummyDb.questions1;
+    }
     startTimer();
   }
 
@@ -47,10 +53,12 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 
   void nextQuestion() {
-    if (questionIndex < DummyDb.questions.length - 1) {
+    if (questionIndex < iquestions.length - 1) {
       setState(() {
         questionIndex++;
         clickedIndex = null;
+        prob = (questionIndex + 1) / DummyDb.questions.length; //progress update
+
         startTimer(); // Restart timer for the next question
       });
     } else {
@@ -83,6 +91,14 @@ class _QuizScreenState extends State<QuizScreen> {
             width: 20,
           )
         ],
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(4),
+          child: LinearProgressIndicator(
+            value: prob,
+            backgroundColor: Colors.blueGrey,
+            color: Colors.amber,
+          ),
+        ),
       ),
       backgroundColor: Colors.black,
       body: Padding(
