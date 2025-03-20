@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_app_advanced/dummy_db.dart';
+
 import 'package:quiz_app_advanced/view/advanced_controller.dart';
 import 'package:quiz_app_advanced/view/quiz_screen/quiz_screen.dart';
 

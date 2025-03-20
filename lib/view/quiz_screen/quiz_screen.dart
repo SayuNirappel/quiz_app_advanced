@@ -28,10 +28,29 @@ class _QuizScreenState extends State<QuizScreen> {
   @override
   void initState() {
     super.initState();
+    //
+    //conditions for choosing db
+    //
     if (widget.position == 0) {
       iquestions = DummyDb.questions;
-    } else {
+    } else if (widget.position == 1) {
       iquestions = DummyDb.questions1;
+    } else if (widget.position == 2) {
+      iquestions = DummyDb.questions2;
+    } else if (widget.position == 3) {
+      iquestions = DummyDb.questions3;
+    } else if (widget.position == 4) {
+      iquestions = DummyDb.questions4;
+    } else if (widget.position == 5) {
+      iquestions = DummyDb.questions5;
+    } else if (widget.position == 6) {
+      iquestions = DummyDb.questions6;
+    } else if (widget.position == 7) {
+      iquestions = DummyDb.questions7;
+    } else if (widget.position == 8) {
+      iquestions = DummyDb.questions8;
+    } else {
+      iquestions = DummyDb.question9;
     }
     startTimer();
   }
@@ -57,7 +76,7 @@ class _QuizScreenState extends State<QuizScreen> {
       setState(() {
         questionIndex++;
         clickedIndex = null;
-        prob = (questionIndex + 1) / DummyDb.questions.length; //progress update
+        prob = (questionIndex + 1) / iquestions.length; //progress update
 
         startTimer(); // Restart timer for the next question
       });
@@ -84,7 +103,7 @@ class _QuizScreenState extends State<QuizScreen> {
         backgroundColor: Colors.black,
         actions: [
           Text(
-            "${questionIndex + 1}/${DummyDb.questions.length}",
+            "${questionIndex + 1}/${iquestions.length}",
             style: TextStyle(color: Colors.white),
           ),
           SizedBox(
@@ -134,7 +153,7 @@ class _QuizScreenState extends State<QuizScreen> {
                     ),
                     Center(
                       child: Text(
-                        DummyDb.questions[questionIndex].question,
+                        iquestions[questionIndex].question,
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                     ),
@@ -156,7 +175,7 @@ class _QuizScreenState extends State<QuizScreen> {
                             setState(() {});
                           }
                           if (clickedIndex ==
-                              DummyDb.questions[questionIndex].answerIndex) {
+                              iquestions[questionIndex].answerIndex) {
                             answerCount++;
                           }
                           timer
@@ -174,13 +193,11 @@ class _QuizScreenState extends State<QuizScreen> {
                               children: [
                                 Expanded(
                                   child: Text(
-                                    DummyDb.questions[questionIndex]
-                                        .options[index],
+                                    iquestions[questionIndex].options[index],
                                     style: TextStyle(
                                         color: (index == clickedIndex ||
                                                 index ==
-                                                        DummyDb
-                                                            .questions[
+                                                        iquestions[
                                                                 questionIndex]
                                                             .answerIndex &&
                                                     clickedIndex != null)
@@ -222,12 +239,12 @@ class _QuizScreenState extends State<QuizScreen> {
 
   Color? _buildOptionColor(int index) {
     if (clickedIndex != null) {
-      if (DummyDb.questions[questionIndex].answerIndex == index) {
+      if (iquestions[questionIndex].answerIndex == index) {
         return Colors.lightGreenAccent;
       }
     }
     if (clickedIndex == index) {
-      if (index == DummyDb.questions[questionIndex].answerIndex) {
+      if (index == iquestions[questionIndex].answerIndex) {
         return Colors.greenAccent;
       } else {
         return Colors.redAccent;
